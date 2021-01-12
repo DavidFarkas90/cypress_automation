@@ -1,0 +1,25 @@
+{
+  "Buttons" : {
+
+    "searchButton": ".//button[@name='submit_1']"
+
+  },
+
+  "Elements" : {
+    "sveMarke": ".//p[@title=' Sve marke']/span",
+    "sveMarkeTextInput": ".//*[@title=' Sve marke']/input",
+    "selectMarku": ".//li[@class='opt']",
+    "sviModeliInput": "//p[@title=' Svi modeli']",
+    "title": "h1"
+  },
+
+  "Data" : {
+
+    "name": "Using fixtures to represent data",
+    "email": "hello@cypress.io",
+    "body": "Fixtures are a great way to mock data for responses to routes",
+    "car": "Mazda",
+    "model": "CX-5"
+
+  }
+}
