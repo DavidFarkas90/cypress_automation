@@ -8,7 +8,7 @@ describe('Practice testing', () => {
         cy.visit('https://www.automationteststore.com/')
     })
     it.only('Handle new window', () => {
-        const twitter = 'twitter'
+        const twitter = 'twitter.com'
         cy.get('.header_block .social_icons .twitter').invoke('removeAttr', 'target').click({ force: true }) // with invoke we remove the target attribute
         cy.location().should((loc) => expect(loc.hostname).to.eql(twitter))
     })
