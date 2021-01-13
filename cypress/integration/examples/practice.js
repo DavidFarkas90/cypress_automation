@@ -1,8 +1,19 @@
 /// <reference types="cypress" />
 
+const { beforeEach } = require("mocha")
+
 describe('Practice testing', () => {
-    it('Navigate to page', () => {
+
+    beforeEach(() => {
         cy.visit('https://www.automationteststore.com/')
+    })
+    it.only('Handle new window', () => {
+        const twitter = 'twitter'
+        cy.get('.header_block .social_icons .twitter').invoke('removeAttr', 'target').click({ force: true }) // with invoke we remove the target attribute
+        cy.location().should((loc) => expect(loc.hostname).to.eql(twitter))
+    })
+    it('Navigate to page', () => {
+
         cy.get('.subnav').contains('Makeup').click({ force: true })
         cy.get('.maintext').should('have.text', 'Makeup')
         cy.get('.fixed').contains('Viva Glam Lipstick').click()
@@ -11,8 +22,8 @@ describe('Practice testing', () => {
         cy.get('@price').should('include', '$5.00')
 
     })
-    it.only('Navigate to home page', () => {
-        cy.visit('https://www.automationteststore.com/')
+    it('Navigate to home page', () => {
+
         //cy.get('#categorymenu a').contains('Home').click()
         cy.get('.thumbnail').as('thumbnail') //alias
         cy.get('@thumbnail').should('have.length', 16)
