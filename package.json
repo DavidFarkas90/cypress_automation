@@ -9,7 +9,8 @@
     "cy:practice": "npx cypress run --spec 'cypress/integration/examples/practice.js'",
     "cy:api": "npx cypress run --spec 'cypress/integration/examples/practice_api.js'",
     "cy:chrome": "npx cypress run --browser chrome --spec 'cypress/integration/my_first_test.js'",
-    "cy:headless": "npx cypress run --headless --browser chrome --spec 'cypress/integration/my_first_test.js'"
+    "cy:headless": "npx cypress run --headless --browser chrome --spec 'cypress/integration/my_first_test.js'",
+    "cy:reporter": "npx cypress run --reporter mochawesome --reporter-options reportDir=reports,reportFilename=api_report --spec 'cypress/integration/examples/practice_api.js'"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +18,7 @@
     "cypress": "^6.1.0",
     "cypress-xpath": "^1.6.1",
     "eslint": "^7.14.0",
-    "mocha": "^8.2.1"
+    "mocha": "^8.2.1",
+    "mochawesome": "^6.2.1"
   }
 }
