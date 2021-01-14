@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cy:first_test": "npx cypress run --spec 'cypress/integration/my_first_test.js'",
+    "cy:practice": "npx cypress run --spec 'cypress/integration/examples/practice.js'",
+    "cy:api": "npx cypress run --spec 'cypress/integration/examples/practice_api.js'",
+    "cy:chrome": "npx cypress run --browser chrome --spec 'cypress/integration/my_first_test.js'",
+    "cy:headless": "npx cypress run --headless --browser chrome --spec 'cypress/integration/my_first_test.js'"
   },
   "author": "",
   "license": "ISC",
