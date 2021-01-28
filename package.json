@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "run:docker": "MSYS_NO_PATHCONV=1 docker run -it -v $PWD:/e2e -w /e2e --entrypoint=cypress cypress/included:6.3.0 run --spec 'cypress/integration/examples/practice_api.js'",
     "cypress:open": "cypress open",
     "cy:first_test": "npx cypress run --spec 'cypress/integration/my_first_test.js'",
     "cy:practice": "npx cypress run --spec 'cypress/integration/examples/practice.js'",
