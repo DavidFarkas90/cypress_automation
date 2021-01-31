@@ -4,19 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "run:docker": "MSYS_NO_PATHCONV=1 docker run -it -v $PWD:/e2e -w /e2e --entrypoint=cypress cypress/included:6.3.0 run --spec 'cypress/integration/examples/practice_api.js'",
+    "run:docker": "MSYS_NO_PATHCONV=1 docker run -it -v $PWD:/e2e -w /e2e --entrypoint=cypress cypress/included:6.1.0 run --reporter mochawesome --reporter-options reportDir=reports,reportFilename=practice_report --spec 'cypress/integration/examples/practice.js'",
     "cypress:open": "cypress open",
     "cy:first_test": "npx cypress run --spec 'cypress/integration/my_first_test.js'",
     "cy:practice": "npx cypress run --spec 'cypress/integration/examples/practice.js'",
     "cy:api": "npx cypress run --spec 'cypress/integration/examples/practice_api.js'",
     "cy:chrome": "npx cypress run --browser chrome --spec 'cypress/integration/my_first_test.js'",
     "cy:headless": "npx cypress run --headless --browser chrome --spec 'cypress/integration/my_first_test.js'",
-    "cy:reporter": "npx cypress run --reporter mochawesome --reporter-options reportDir=reports,reportFilename=api_report --spec 'cypress/integration/examples/practice_api.js'"
+    "cy:reporter": "npx cypress run --reporter mochawesome --reporter-options reportDir=reports,reportFilename=practice_report --spec 'cypress/integration/examples/practice.js'"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^6.1.0",
     "cypress-xpath": "^1.6.1",
     "eslint": "^7.14.0",
     "mocha": "^8.2.1",

@@ -3,7 +3,7 @@
     "reporter": "mochawesome",
     "reporterOptions": {
         "reportDir": "reports",
-        "reportFilename": "api_report",
+        "reportFilename": "new_report",
         "toConsole": true
     }
 }
