@@ -1,0 +1,11 @@
+version: '3'
+services:
+  e2e-reporter:
+    image: "cypress/included:6.1.0"
+    command: "npx cypress run --reporter mochawesome --reporter-options reportDir=reports,reportFilename=pom_report_2 --spec 'cypress/integration/examples/pom_practice.js'"
+    volumes: 
+      - ./cypress:/cypress
+      - ./node_modules:/node_modules
+      - ./reports:/reports
+      - ./cypress.json:/cypress.json
+      - ./package.json:/package.json
