@@ -1,0 +1,13 @@
+{
+    "home-page": "https://www.automationteststore.com/",
+    "login-or-register-btn": "#customer_menu_top li a",
+    "register-account-rbtn": "#accountFrm_accountregister",
+    "continue-btn": "button[title='Continue']",
+    "first-name": "#AccountFrm_firstname",
+    "last-name": "#AccountFrm_lastname",
+    "email": "#AccountFrm_email",
+    "phone": "#AccountFrm_telephone",
+    "fax": "#AccountFrm_fax",
+    "company": "#AccountFrm_company"
+
+}

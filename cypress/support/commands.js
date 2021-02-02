@@ -27,3 +27,9 @@
 Cypress.Commands.add("assertTitle", (expectedTitle) => {
     cy.get('h1').should('have.text', expectedTitle)
 })
+
+Cypress.Commands.add("genEmail", () => {
+    var num = Math.floor(Math.random() * 10) + 1;
+    var email = 'd.far' + num + '@gmail.com';
+    return email
+})
