@@ -1,7 +1,5 @@
-FROM cypress/included:6.1.0
+FROM cypress/included:6.4.0
 
 COPY ./cypress ./cypress
 COPY ./cypress.json ./cypress.json
 COPY ./package.json ./package.json
-
-RUN npm install
