@@ -1,11 +1,17 @@
 /// <reference types="cypress" />
+import { productListPage } from '../page/productListPage';
 
-class homePage {
+export class homePage {
+
     visitHomePage() {
         cy.visit('https://www.automationteststore.com/')    
     }
     useMainNavigation(navigateToPage) {
         return cy.get('.subnav').contains(navigateToPage).click({ force: true })
+    }
+    useMainNav(navigateToPage) {
+        cy.get('.subnav').contains(navigateToPage).click({ force: true })
+        return new productListPage()
     }
     getMainHeader() {
          return cy.get('.maintext')
@@ -23,4 +29,3 @@ class homePage {
         return this.getMainHeader().should('have.text', expectedValue)
     }
 }
-export default homePage
