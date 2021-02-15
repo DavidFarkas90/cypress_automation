@@ -33,3 +33,9 @@ Cypress.Commands.add("genEmail", () => {
     var email = 'd.far' + num + '@gmail.com';
     return email
 })
+Cypress.Commands.add("selectProduct", (product) => {
+    cy.xpath(".//div[@class='product-container'][" + product + "]//div/a[@class='js-product-link']").click()
+})
+Cypress.Commands.add("selectFavorites", (product) => {
+    cy.xpath(".//div[@class='product-container'][" + product + "]//div[@class='product js-gtmproduct']/a").click()
+})

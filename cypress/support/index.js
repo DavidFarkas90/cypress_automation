@@ -19,3 +19,6 @@ import './commands'
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 require('cypress-xpath')
+
+import chaiColors from 'chai-colors'
+chai.use(chaiColors)
