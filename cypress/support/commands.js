@@ -23,6 +23,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+import 'cypress-file-upload';
 
 Cypress.Commands.add("assertTitle", (expectedTitle) => {
     cy.get('h1').should('have.text', expectedTitle)
@@ -34,8 +35,13 @@ Cypress.Commands.add("genEmail", () => {
     return email
 })
 Cypress.Commands.add("selectProduct", (product) => {
-    cy.xpath(".//div[@class='product-container'][" + product + "]//div/a[@class='js-product-link']").click()
+    cy.xpath(".//div[@class='product-container'][" + product + "]//div/a[@class='js-product-link']").click({force: true})
 })
 Cypress.Commands.add("selectFavorites", (product) => {
     cy.xpath(".//div[@class='product-container'][" + product + "]//div[@class='product js-gtmproduct']/a").click()
+})
+Cypress.Commands.add("selectCategory", (mainCatgeory, subCategory) => {
+    cy.contains("button.btn", "categorie kiezen").trigger("mouseover")
+    cy.contains("div.main-nav li.has-children", mainCatgeory).trigger("mouseover", {force: true})
+    cy.contains("ul.clearfix li a", subCategory).click({force: true})
 })
