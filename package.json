@@ -10,6 +10,7 @@
     "dock-linux": "docker run -it -v ${PWD}:/e2e -w /e2e --entrypoint=cypress cypress/included:6.1.0 run --reporter mochawesome --reporter-options reportDir=reports,reportFilename=practice_report_2 --spec 'cypress/integration/examples/practice.js'",
     "cypress:open": "cypress open",
     "cy:first_test": "npx cypress run --spec 'cypress/integration/my_first_test.js'",
+    "cy:mobile": "npx cypress run --headless --browser chrome --spec 'cypress/integration/mobileAddToFavorites.spec.js'",
     "cy:practice": "npx cypress run --spec 'cypress/integration/examples/practice.js'",
     "cy:api": "npx cypress run --spec 'cypress/integration/examples/practice_api.js'",
     "cy:chrome": "npx cypress run --browser chrome --spec 'cypress/integration/my_first_test.js'",
