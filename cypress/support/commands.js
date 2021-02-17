@@ -41,7 +41,6 @@ Cypress.Commands.add("selectFavorites", (product) => {
     cy.xpath(".//div[@class='product-container'][" + product + "]//div[@class='product js-gtmproduct']/a").click()
 })
 Cypress.Commands.add("selectCategory", (mainCatgeory, subCategory) => {
-    cy.contains("button.btn", "categorie kiezen").trigger("mouseover")
-    cy.contains("div.main-nav li.has-children", mainCatgeory).trigger("mouseover", {force: true})
-    cy.contains("ul.clearfix li a", subCategory).click({force: true})
+    cy.get(".categories-wrap").trigger("mouseover").find("[class='category-tree clearfix']").contains(mainCatgeory).
+    trigger("mouseover").parent().find("[class='group has-children']").contains(subCategory).click({force: true})
 })

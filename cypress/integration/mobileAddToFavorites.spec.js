@@ -10,10 +10,12 @@ describe("Add product to favorites", () => {
     })
     it("Select a product and add to favorites from PDP", () => {
         cy.get(".show-on-mobile button").click()
-        cy.contains(".wrap", "menu").click()
-        .contains(".mobile-category-menu", "kind").click({force: true})
-        .contains("tops, shirts en blouses").click({force: true})
-        cy.get("h1.filters-heading").should("have.text", "tops, shirts en blouses")
+        cy.get(".hamburger").click().parent().next().next()
+        .find("ul[class='category-tree clearfix']").contains("dames").click({force: true})
+        .parent().find("[class='clearfix link-groups']").contains("lingerie").click({force: true})
+        .parent().find("[class='level-3 sliding-menu open']").contains("slips").click({force: true})
+
+        cy.get(".capture h1").should("have.text", "\nslips\n")
         cy.selectProduct(2)
         cy.get("div.btns-wrap i.icon-heart").click()
         cy.get(".mobile-favorites-added").should('be.visible')
