@@ -42,14 +42,13 @@ describe("Add product to favorites", () => {
         cy.get(".btns-wrap .js-favorites-heart").click().should("not.have.class", "js-favorites-heart added red-heart")
     })
 
-    it.only("Add product to favorites and remove it from favorites dropdown", () =>{
-        cy.get(".categories-wrap button").trigger('mouseover')
+    it("Add product to favorites and remove it from favorites dropdown", () =>{
         cy.selectCategory("dames", "badmode")
         cy.get('.filter-wrapper h1').contains('badmode')
         cy.selectFavorites(2)
         cy.selectFavorites(3)
         cy.get("span.favorites-number").should("have.text", "(2)2")
         cy.removeFromFavorites("dames bikinibroekje - animal")
-        cy.get(".favorites-wrap").trigger("mouseover").find(".product-info .title").should("not.have.text", "dames bikinibroekje - animal")
+        cy.get(".favorites-wrap").trigger("mouseover", {force: true}).find(".product-info .title").should("not.have.text", "dames bikinibroekje - animal")
     })
 })
