@@ -20,6 +20,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "cypress": "^6.5.0",
     "cypress-file-upload": "^5.0.2",
     "cypress-xpath": "^1.6.1",
     "eslint": "^7.14.0",
