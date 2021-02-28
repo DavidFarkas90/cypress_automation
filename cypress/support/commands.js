@@ -52,5 +52,5 @@ Cypress.Commands.add("removeFromFavorites", (product) => {
     cy.get(".favorites-wrap").trigger("mouseover").find(".product-item").contains(product).parent().find(".remove-basket-product").click({force: true})
 })
 Cypress.Commands.add("selectCakeBackground", (background) => {
-    cy.xpath(".//div[@class='vertical-scroll-element']//li[" + background + "]")
+    cy.xpath(".//div[@class='vertical-scroll-element']//li[" + background + "]").click()
 })

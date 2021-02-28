@@ -9,11 +9,20 @@ describe("Cake editing", () => {
     before(() => {
         cy.clearCookies()
         cy.clearLocalStorage()
-        cy.visit("https://www.hema.nl/")
-        cy.get("#EBG_258_accept").then($button => {
-            if ($button.is(':visible')){
+
+        cy.visit("https://www.hema.nl")
+        cy.request("/")
+      .its('body')
+      .then(html => {
+        const $titleHomePage = Cypress.$(html).find('#EBG_258_blue_button').text();
+        cy.log('Title of Page is: ' + $titleHomePage.text());
+        //cy.wrap($titleHomePage).click();
+      })
+        cy.get(".container").then(() => {
+            
+            if (acceptBtn.is(':visible')){
               //you get here only if button is visible
-              cy.wrap($button).click()
+              cy.wrap(acceptBtn).click()
             }
           })
     })
@@ -42,12 +51,22 @@ describe("Cake editing", () => {
         cy.get(".btns-wrap a").contains("verwijderen").click()
         cy.get(".layout-holder").should("be.visible")
     })
-    it("Add background to cake", () => {
-        cy.contains("div.tools li", "achtergrond").click()
-        cy.get(".toolbox-actions").next().contains("achtergrond kiezen")
-        cy.xpath(".//div[@class='vertical-scroll-element']//li[6]//img").click()
-        //cy.selectCakeBackground[6]
-        cy.get(".toolbox-actions .icon-small").should("be.visible").click()
+    it.only("Add background to cake", () => {
+
+        cy.selectCategory("heren", "jassen")
+        // cy.get(".categories-wrap button").trigger("mouseover").click()
+        // .parent().find("ul.category-tree li a").contains("heren").trigger("mouseover")
+        // .parent().find("ul.link-groups li a").contains("jassen").click({force: true})
+
+        // cy.selectCategory(bakery, photoCake)
+        // cy.get('.capture h1').contains(photoCake).should("have.text", "\nfototaart\n")
+        // cy.selectProduct(1)
+        // cy.get("#add-to-cart").click()
+        // cy.contains("div.tools li", "achtergrond").click()
+        // cy.get(".toolbox-actions").next().contains("achtergrond kiezen")
+        // cy.xpath(".//div[@class='vertical-scroll-element']//li[6]//img").click()
+        // //cy.selectCakeBackground[6]
+        // cy.get(".toolbox-actions .icon-small").should("be.visible").click()
     })
 
     // it("Upload 2", () => {
