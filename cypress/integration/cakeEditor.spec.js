@@ -7,26 +7,27 @@ const image = "Simpsons.jpg"
 
 describe("Cake editing", () => {
     before(() => {
-        cy.clearCookies()
-        cy.clearLocalStorage()
-
-        cy.visit("https://www.hema.nl")
+        cy.visit("https://www.hema.nl/")
         cy.request("/")
       .its('body')
       .then(html => {
-        const $titleHomePage = Cypress.$(html).find('#EBG_258_blue_button').text();
-        cy.log('Title of Page is: ' + $titleHomePage.text());
+        const acceptBtn = Cypress.$(html).find("[id='EBG_258_accept']")
+        if(acceptBtn.is(":visible") === true) {
+          cy.log("Accept button is visible")
+          cy.wrap(acceptBtn).click()
+        }
+        else (cy.get(".hidden-on-mobile .js-close-cookies").click())
         //cy.wrap($titleHomePage).click();
       })
-        cy.get(".container").then(() => {
+        // cy.get(".container").then(() => {
             
-            if (acceptBtn.is(':visible')){
-              //you get here only if button is visible
-              cy.wrap(acceptBtn).click()
-            }
-          })
+        //     if (acceptBtn.is(':visible')){
+        //       //you get here only if button is visible
+        //       cy.wrap(acceptBtn).click()
+        //     }
+        //   })
     })
-    it("Upload photo to cake editor", () => {
+    it.only("Upload photo to cake editor", () => {
         cy.selectCategory(bakery, photoCake)
         cy.get('.capture h1').contains(photoCake).should("have.text", "\nfototaart\n")
         cy.selectProduct(1)

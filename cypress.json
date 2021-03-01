@@ -1,4 +1,5 @@
 {
+    "defaultCommandTimeout": 7000,
     "chromeWebSecurity": false,
     "reporter": "mochawesome",
     "reporterOptions": {
