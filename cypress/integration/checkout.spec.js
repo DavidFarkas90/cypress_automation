@@ -1,7 +1,13 @@
 describe('Checkout flow', () => {
     before(() => {
         cy.visit("https://www.hema.nl/")
-        cy.get(".hidden-on-mobile .js-close-cookies").click()
+        cy.get("body").then(($body) => {
+            if($body.find("#EBG_258_accept").length > 0) {
+                cy.get("#EBG_258_accept").click({force: true})
+            }
+            else(cy.get(".hidden-on-mobile .js-close-cookies").click())
+        })
+        
     })
     it('Add product to cart', () => {
         cy.selectCategory("heren", "shirts en polo's")
