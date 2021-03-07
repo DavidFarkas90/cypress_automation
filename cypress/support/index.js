@@ -20,6 +20,8 @@ import './commands'
 // require('./commands')
 require('cypress-xpath')
 
+require('cypress-failed-log')
+
 import chaiColors from 'chai-colors'
 chai.use(chaiColors)
 

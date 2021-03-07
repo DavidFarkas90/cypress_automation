@@ -1,0 +1,11 @@
+{
+  "specName": "my-test.spec.js",
+  "title": "Second test",
+  "suiteName": "",
+  "testName": " Second test",
+  "testError": "Timed out retrying after 7000ms: Not enough elements found. Found '6', expected '7'.",
+  "testCommands": [
+    "get li.store",
+    "assert expected **[ <li.store.selected>, 5 more... ]** to have a length of **7** but got **6**"
+  ]
+}

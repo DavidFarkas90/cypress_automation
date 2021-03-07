@@ -24,3 +24,9 @@ const selectTestsWithGrep = require('cypress-select-tests/grep')
 module.exports = (on, config) => {
   on('file:preprocessor', selectTestsWithGrep(config))
 }
+
+module.exports = (on, config) => {
+  on('task', {
+    failed: require('cypress-failed-log/src/failed')(),
+  })
+}
