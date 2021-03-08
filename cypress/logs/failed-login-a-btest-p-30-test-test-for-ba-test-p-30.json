@@ -1,0 +1,11 @@
+{
+  "specName": "LoginABtest.spec.js",
+  "title": "Test for BA test P30",
+  "suiteName": "P30 Test",
+  "testName": "P30 Test Test for BA test P30",
+  "testError": "Timed out retrying after 7000ms: Expected to find content: '  Change password' within the element: [ <i.fa.fa-user.fa-fw>, 9 more... ] but never did.",
+  "testCommands": [
+    "get .myaccountbox li i",
+    "contains   Change password"
+  ]
+}

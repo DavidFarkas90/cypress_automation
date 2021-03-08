@@ -1,0 +1,8 @@
+{
+  "specName": "LoginABtest.spec.js",
+  "title": "Test for CA test P30",
+  "suiteName": "P30 Test",
+  "testName": "P30 Test Test for CA test P30",
+  "testError": "Cypress detected you registered a(n) `beforeEach` hook while a test was running (possibly a hook nested inside another hook). All hooks must be registered before a test begins executing.\n\nMove the `beforeEach` into a suite callback or the global scope.",
+  "testCommands": []
+}
