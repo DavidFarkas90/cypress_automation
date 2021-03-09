@@ -20,8 +20,8 @@ describe('P30 Test', () => {
     //     cy.get(".myaccountbox li i").contains("  Change password").click()
     //     cy.url().should("include", "wishlist")
     // });
-    it('Test for CA test P30', () => {
-        cy.visit("https://www.hema.nl/")
+    it('Check cookies', () => {
+        cy.visit("/")
         
         cy.getCookie('cookies_accepted').then(($cookie) => {
             cy.log("This is my cookie value: " + $cookie.value)
@@ -33,12 +33,25 @@ describe('P30 Test', () => {
         })
         cy.url().should("include", "hema")
     });
-    // it('Test for DB test P40', () => {
-    //     cy.visit("https://www.hema.nl/")
-    //     cy.url().should("include", "hema")
-    // });
-    // it('Test for EF test P40', () => {
-    //     cy.visit("https://www.hema.nl/")
-    //     cy.url().should("include", "hema")
-    // });
+    it('Search', () => {
+        cy.visit("https://www.hema.nl/")
+        cy.url().should("include", "hema")
+        cy.get("#q").type("shirt").should("have.value", "shirt")
+        cy.get(".js-other-suggestion-link").should("contain.text", "shirt").and("have.attr", "href", "https://www.hema.nl/search?q=shirt")
+        .find(".js-term").should("have.text", "shirt").next().should("have.text", "(568)")
+
+        cy.get("a.js-product-suggestion-link").each(($link) => {
+            cy.log("Links are " + $link)
+            expect(cy.wrap($link).should("contain.html", "shirt"))
+        })
+
+        cy.get(".search-phrase .js-category-suggestion-link").each(($link) => {
+            cy.log("suggestion links are " + $link)
+            expect(cy.wrap($link).should("contain.html", "shirt"))
+        })
+    });
+    it('Reset', () => {
+        cy.get(".js-search-clear").click()
+        cy.get(".js-search-clear").should("have.attr", "style", "display: none;")
+    });
 });
