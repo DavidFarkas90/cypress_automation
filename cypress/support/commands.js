@@ -25,6 +25,10 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 import 'cypress-file-upload';
 
+Cypress.Commands.add("searchForProduct", (product) => {
+    cy.get("#q").type(product).should("have.value", product).get(".header-search-wrap .search-btn").click()
+})
+
 Cypress.Commands.add("assertTitle", (expectedTitle) => {
     cy.get('h1').should('have.text', expectedTitle)
 })
