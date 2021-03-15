@@ -1,0 +1,20 @@
+Why Cypress?
+Free and open source, it has a rich documentation and an active community
+
+Cypress is a Javascript based E2E testing framework, that is built on top of Mocha and Chai assertion libraries.
+It is based on Node.js and it is fast to set up, you can install it via NPM or YARN, also all other add-ons can be installed as NPM package.
+
+It runs in the browser, and cross browser testing is supported (currently Chrome, Firefox, Edge and Electron)
+
+Cypress automatically waits for the DOM to be loaded, elements to be visible, animation to be complete, XHR and AJAX calls to be finished.
+It uses test assertions to establish the desired state of your application and before moving on it waits automatically for your application to reach this state. This is a huge difference comparing to other testing tools such as Selenium.
+Therefore there is no need for explicit and implicit waits.
+
+Auto-Reloads It automatically reloads when you make any change to your tests.
+
+Timetravel and debuggability - Cypress takes snapshots of the steps executed so you can timetravel back and see on which step did the test fail.
+Also it gives you straithforward error messages and suggests how you should fix them.
+You can debug your application directly with Chrome DevTools while the tests are being executed in browser.
+
+Cypress enables you to write several types of tests: end-to-end tests, integration tests, and even unit tests. You have the control and the ability to verify the behavior of functions or server responses, just like in unit testing.
+Cypress supports interacting with an API. There is a built in api testing library that’s simple to use.  This is something selenium/WebDriver.io can’t do without using a different library and extending the framework.

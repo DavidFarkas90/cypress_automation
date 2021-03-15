@@ -7,25 +7,8 @@ const image = "Simpsons.jpg"
 
 describe("Cake editing", () => {
     before(() => {
+      cy.setCookie('cookies_accepted', '1')
         cy.visit("https://www.hema.nl/")
-        cy.request("/")
-      .its('body')
-      .then(html => {
-        const acceptBtn = Cypress.$(html).find("[id='EBG_258_accept']")
-        if(acceptBtn.is(":visible") === true) {
-          cy.log("Accept button is visible")
-          cy.wrap(acceptBtn).click()
-        }
-        else (cy.get(".hidden-on-mobile .js-close-cookies").click())
-        //cy.wrap($titleHomePage).click();
-      })
-        // cy.get(".container").then(() => {
-            
-        //     if (acceptBtn.is(':visible')){
-        //       //you get here only if button is visible
-        //       cy.wrap(acceptBtn).click()
-        //     }
-        //   })
     })
     it.only("Upload photo to cake editor", () => {
         cy.selectCategory(bakery, photoCake)
@@ -33,9 +16,9 @@ describe("Cake editing", () => {
         cy.selectProduct(1)
         cy.get("#add-to-cart").click()
         cy.contains("div.tools li", "foto").click()
-        cy.get("[type='file']").attachFile(image)
-        cy.wait(5000)
-        cy.get(".image-link img").should("be.visible")
+        cy.get("[type='file']").attachFile(image).then(()=>{
+          cy.get(".image-link img").should("be.visible")
+        })
         cy.xpath(".//ul[@class='clearfix']/li[2]").click()
         cy.get(".toolbox-actions .icon-small").should("be.visible").click()
         cy.get(".toolbox-actions .white").should("be.visible").click()
@@ -52,22 +35,18 @@ describe("Cake editing", () => {
         cy.get(".btns-wrap a").contains("verwijderen").click()
         cy.get(".layout-holder").should("be.visible")
     })
-    it.only("Add background to cake", () => {
+    it("Add background to cake", () => {
 
-        cy.selectCategory("heren", "jassen")
-        // cy.get(".categories-wrap button").trigger("mouseover").click()
-        // .parent().find("ul.category-tree li a").contains("heren").trigger("mouseover")
-        // .parent().find("ul.link-groups li a").contains("jassen").click({force: true})
-
-        // cy.selectCategory(bakery, photoCake)
-        // cy.get('.capture h1').contains(photoCake).should("have.text", "\nfototaart\n")
-        // cy.selectProduct(1)
-        // cy.get("#add-to-cart").click()
-        // cy.contains("div.tools li", "achtergrond").click()
-        // cy.get(".toolbox-actions").next().contains("achtergrond kiezen")
-        // cy.xpath(".//div[@class='vertical-scroll-element']//li[6]//img").click()
-        // //cy.selectCakeBackground[6]
-        // cy.get(".toolbox-actions .icon-small").should("be.visible").click()
+        cy.selectCategory(bakery, photoCake)
+        cy.get('.capture h1').contains(photoCake).should("have.text", "\nfototaart\n")
+        cy.selectProduct(1)
+        cy.get("#add-to-cart").click()
+        cy.contains("div.tools li", "achtergrond").click()
+        cy.get(".toolbox-actions").next().contains("achtergrond kiezen")
+        cy.get(".vertical-scroll-element h3").contains("Kind").parent().find(".clearfix li").its("length", "4").click()
+        //cy.xpath(".//div[@class='vertical-scroll-element']//li[5]//img").click()
+        //cy.selectCakeBackground[6]
+        cy.get(".toolbox-actions .icon-small").should("be.visible").click()
     })
 
     // it("Upload 2", () => {
