@@ -25,6 +25,10 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 import 'cypress-file-upload';
 
+Cypress.Commands.add("selectEditor", (editor) => {
+    cy.contains("div.tools li", editor).click()
+})
+
 Cypress.Commands.add("searchForProduct", (product) => {
     cy.get("#q").clear().type(product).should("have.value", product).get(".header-search-wrap .search-btn").click()
 })

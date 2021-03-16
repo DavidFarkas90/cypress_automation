@@ -3,13 +3,13 @@
 describe("Add product to favorites", () => {
 
     before(() => {
+        cy.setCookie('cookies_accepted', '1')
         cy.visit("https://www.hema.nl/")
     })
     beforeEach(() => {
         cy.viewport("iphone-8")
     })
     it("Select a product and add to favorites from PDP", () => {
-        cy.get(".show-on-mobile button").click()
         cy.get(".hamburger").click().parent().next().next()
         .find("ul[class='category-tree clearfix']").contains("dames").click({force: true})
         .parent().find("[class='clearfix link-groups']").contains("lingerie").click({force: true})
