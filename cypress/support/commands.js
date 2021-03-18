@@ -25,6 +25,18 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 import 'cypress-file-upload';
 
+Cypress.Commands.add("selectSize", (size) => {
+    cy.get("ul.vdasize li").contains(size).click()
+    //.should("have.attr", "title", '"maat: ' + size + '"')
+})
+
+Cypress.Commands.add("selectQuantity", (quantity) => {
+    cy.get(".dd-wrap .selectric").click().then(() => {
+        cy.get(".dd-wrap .selectric-items li").contains(quantity).should("have.text", quantity).click()
+        cy.get(".dd-wrap .label").should("have.text", quantity)
+    })
+})
+
 Cypress.Commands.add("selectEditor", (editor) => {
     cy.contains("div.tools li", editor).click()
 })
@@ -61,4 +73,12 @@ Cypress.Commands.add("removeFromFavorites", (product) => {
 })
 Cypress.Commands.add("selectCakeBackground", (background) => {
     cy.xpath(".//div[@class='vertical-scroll-element']//li[" + background + "]").click()
+})
+
+Cypress.Commands.add("uploadImage", (image) => {
+    cy.get("[type='file']").attachFile(image).then(()=>{
+        cy.get(".image-link img").should("be.visible")
+        cy.xpath(".//ul[@class='clearfix']/li[2]").click()
+        cy.get(".toolbox-actions .icon-small").should("be.visible").click()
+      })
 })

@@ -10,6 +10,8 @@ const firstname = "Tester"
 const lastname = "Testing"
 const email = "testser01@gmail.com"
 const phoneNum = "06111884466"
+const pickUpAtHema = "afhalen bij HEMA"
+const houseDelivery = "bezorgen in Nederland"
 
 describe('Checkout flow', () => {
     before(() => {
@@ -21,14 +23,10 @@ describe('Checkout flow', () => {
         cy.get('h1.filters-heading').should("have.text", "t-shirts en polo's")
         cy.selectProduct(2)
         let productName = cy.get(".product-title-price h1").invoke("text")
-
-        cy.get("ul.vdasize li").contains(size).click().then(() => {
+        cy.selectSize(size).then(() => {
             cy.get("#Quantity").should("not.have.attr", "disabled", "disabled")
         })
-        cy.get(".dd-wrap .selectric").click().then(() => {
-            cy.get(".dd-wrap .selectric-items li").contains(quantity).should("have.text", quantity).click()
-            cy.get(".dd-wrap .label").should("have.text", quantity)
-        })
+        cy.selectQuantity(quantity)
         cy.get("#add-to-cart").click()
         cy.get(".minicart-totals a").click()
 
@@ -40,21 +38,19 @@ describe('Checkout flow', () => {
 
         //Checkout Shipping
         cy.get(".page-title").should("have.text", "de levering van je bestelling")
-        // cy.get(".shipping-methods li").first().click({force: true})
-        // cy.get("#shippingmethod-HEMA-collectFromStoreStandard-NL").should("have.attr", "checked", "checked")
-        // //.parent().should("have.css", "background-color", "#5dc5e3")
-        // cy.get(".js-choose-store-address").click()
-        // cy.get("#dwfrm_storelocator_postalCode").type(store).should("have.value", store)
-        // cy.get(".js-storelocator-search").click()
-        // cy.get(".js-store-list li label").contains(store).click().then(() => {
-        //     cy.get(".address-border p").first().should("contain.text", store)
-        // })
+        cy.get("#dwfrm_shippingmethods .radio-check label").contains(pickUpAtHema).click()
+        cy.get(".js-choose-store-address").click()
+        cy.get("#dwfrm_storelocator_postalCode").type(store).should("have.value", store)
+        cy.get(".js-storelocator-search").click().then(() => {
+            cy.get(".js-store-list li .store-heading label").contains(store).should("have.text", store).click()
+        })
+        cy.get(".address-border p").first().should("contain.text", store)
         cy.get("button[name='dwfrm_shippingmethods_save']").click()
 
         //Checkout Information
         cy.get(".page-title").should("have.text", "bezorgadres")
-        //cy.get("div.in label").contains(mr).click().parent().should("have.css", "background-color", "#5dc5e3")
-        cy.get("#dwfrm_smalladdressform_information_gender_NL_2").click()
+        cy.get("#dwfrm_fulladdressform .input-radio").contains(mr).first().click().parent().should("have.css", "background-color", "#5dc5e3")
+        //cy.get("#dwfrm_smalladdressform_information_gender_NL_2").click()
         cy.get("#dwfrm_smalladdressform_information_name_firstname_NL").type(firstname).should("have.value", firstname)
         cy.get("#dwfrm_smalladdressform_information_name_lastname_NL").type(lastname).should("have.value", lastname)
         cy.get("#dwfrm_smalladdressform_information_email_email_NL").type(email).should("have.value", email)

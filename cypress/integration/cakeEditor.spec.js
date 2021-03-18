@@ -2,8 +2,14 @@
 
 //Needed values for test
 const bakery = "taart, eten en drinken"
+const pastry = "gebak"
 const photoCake = "fototaart"
 const image = "Simpsons.jpg"
+const sticker = "stickers"
+const background = "achtergrond"
+const photo = "foto"
+const text = "tekst"
+const demo = "This is a demo presentation"
 
 describe("Cake editing", () => {
     before(() => {
@@ -15,12 +21,9 @@ describe("Cake editing", () => {
         cy.get('.capture h1').contains(photoCake).should("have.text", "\nfototaart\n")
         cy.selectProduct(1)
         cy.get("#add-to-cart").contains("ontwerp je taart").click()
-        cy.contains("div.tools li", "foto").click()
-        cy.get("[type='file']").attachFile(image).then(()=>{
-          cy.get(".image-link img").should("be.visible")
-          cy.xpath(".//ul[@class='clearfix']/li[2]").click()
-          cy.get(".toolbox-actions .icon-small").should("be.visible").click()
-        })
+        cy.selectEditor(photo)
+        cy.get(".toolbox-actions").next().should("have.text", "foto toevoegen")
+        cy.uploadImage(image)
         cy.get(".toolbox-actions .white").should("be.visible").click()
         cy.get(".image-wrap").should("not.be.empty").and("be.visible")
     })
@@ -38,35 +41,64 @@ describe("Cake editing", () => {
     })
     it("Add background to cake", () => {
 
-        // cy.selectCategory(bakery, photoCake)
-        // cy.get('.capture h1').contains(photoCake).should("have.text", "\nfototaart\n")
-        // cy.selectProduct(1)
-        // cy.get("#add-to-cart").click()
-        cy.contains("div.tools li", "achtergrond").click()
+        cy.selectEditor(background)
         cy.get(".toolbox-actions").next().contains("achtergrond kiezen")
-        cy.get(".vertical-scroll-element li").should("have.length", "5").click()
-        //cy.xpath(".//div[@class='vertical-scroll-element']//li[5]//img").click()
-        //cy.selectCakeBackground[6]
+        cy.get(".vertical-scroll-element li").eq("9").click()
         cy.get(".toolbox-actions .icon-small").should("be.visible").click()
+        cy.get("#cake-canvas .cake-bg").should("have.attr", "style").then(($imgUrl) => {
+            
+            expect($imgUrl).to.contain("background-image")
+        })
+        
+    })
+    it("Remove background from cake", () => {
+
+        cy.selectEditor(background)
+        cy.get(".toolbox-actions").next().contains("achtergrond kiezen")
+        cy.get(".vertical-scroll-element li").contains("geen achtergrond").click()
+        cy.get(".toolbox-actions .icon-small").should("be.visible").click()
+        cy.get("#cake-canvas .cake-bg").should("not.exist")
+    })
+    it("Add stickers  to cake", () => {
+
+        cy.selectEditor(sticker)
+        cy.get(".toolbox-actions").next().contains("sticker kiezen")
+        cy.get(".vertical-scroll-element li").eq("5").click()
+        cy.get(".toolbox-actions .icon-small").should("be.visible").click().then(() => {
+            cy.get(".toolbox-actions").next().should("have.text", "sticker bewerken")
+            cy.get(".toolbox-actions .white").should("be.visible").click()
+        })
+        cy.get(".sticker-wrap").should("not.be.empty").and("be.visible")
+        
     })
 
-    // it("Upload 2", () => {
-    //     cy.selectCategory(bakery, photoCake)
-    //     cy.get('.capture h1').contains(photoCake).should("have.text", "\nfototaart\n")
-    //     cy.selectProduct(2)
-    //     cy.get("#add-to-cart").click()
-    //     cy.contains("div.tools li", "foto").click()
-    //     cy.fixture("Simpsons.jpg", "base64").then(fileContent => {
-    //         cy.get("[type='file']").attachFile(
-    //             {
-    //                 fileContent,
-    //                 fileName: "Simpsons.jpg",
-    //                 mimeType: "image/jpg"
-    //             },
-    //             {
-    //                 uploadType: "input"
-    //             }
-    //         )
-    //     })
-    // })
+    it("Remove sticker from cake", () => {
+        cy.get(".sticker-wrap img").click()
+        cy.get(".toolbox-actions").next().contains("sticker bewerken")
+        cy.contains(".scroll-element .icon-text", "verwijderen").click()
+        cy.get(".btns-wrap a").contains("verwijderen").click()
+        cy.get(".sticker-wrap img").should("not.exist")
+    })
+
+    it("Add text  to cake", () => {
+
+        cy.selectEditor(text)
+        cy.get(".toolbox-actions").next().contains("tekst toevoegen")
+        cy.get("#cake-text").type(demo).should("have.value", demo)
+        cy.get(".toolbox-actions .icon-small").should("be.visible").click().then(() => {
+            cy.get(".toolbox-actions").next().should("have.text", "tekst bewerken")
+            cy.get(".toolbox-actions .white").should("be.visible").click()
+        })
+        cy.get(".text-wrap span").should("contain.text", demo).and("be.visible")
+        
+    })
+
+    it("Remove text from cake", () => {
+        
+        cy.get(".text-wrap span").contains(demo).click()
+        cy.get(".toolbox-actions").next().contains("tekst bewerken")
+        cy.contains(".scroll-element .icon-text", "verwijderen").click()
+        cy.get(".btns-wrap a").contains("verwijderen").click()
+        cy.get(".text-wrap span").should("not.contain.text", demo)
+    })
 })

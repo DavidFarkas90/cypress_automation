@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 
+const bakery2 = "taart en gebak"
 const bakery = "taart, eten en drinken"
 const pastry = "gebak"
 const photoCake = "fototaart"
@@ -30,11 +31,7 @@ describe("Cake editor mobile", () => {
         cy.get("#add-to-cart").contains("ontwerp je taart").click()
         cy.selectEditor(photo)
         cy.get(".toolbox-actions").next().should("have.text", "foto toevoegen")
-        cy.get("[type='file']").attachFile(image).then(()=>{
-          cy.get(".image-link img").should("be.visible")
-          cy.xpath(".//ul[@class='clearfix']/li[2]").click()
-          cy.get(".toolbox-actions .icon-small").should("be.visible").click()
-        })
+        cy.uploadImage(image)
         cy.get(".toolbox-actions .white").should("be.visible").click()
         cy.get(".image-wrap").should("not.be.empty").and("be.visible")
 
@@ -52,12 +49,14 @@ describe("Cake editor mobile", () => {
         cy.get(".layout-holder .cake-object").should("not.exist")
     })
     it("Add background to cake", () => {
-
         cy.selectEditor(background)
         cy.get(".toolbox-actions").next().contains("achtergrond kiezen")
         cy.get(".vertical-scroll-element li").eq("9").click()
         cy.get(".toolbox-actions .icon-small").should("be.visible").click()
-        cy.get(".jsCakeLayout").should("be.visible")
+        cy.get("#cake-canvas .cake-bg").should("have.attr", "style").then(($imgUrl) => {
+            
+            expect($imgUrl).to.contain("background-image")
+        })
         
     })
     it("Remove background from cake", () => {
@@ -66,7 +65,7 @@ describe("Cake editor mobile", () => {
         cy.get(".toolbox-actions").next().contains("achtergrond kiezen")
         cy.get(".vertical-scroll-element li").contains("geen achtergrond").click()
         cy.get(".toolbox-actions .icon-small").should("be.visible").click()
-        //cy.get(".jsCakeLayout").should("not.be.visible")
+        cy.get("#cake-canvas .cake-bg").should("not.exist")
     })
     it("Add stickers  to cake", () => {
 
