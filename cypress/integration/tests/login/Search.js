@@ -12,9 +12,13 @@ const whatAreYouLookingFor = "Waar ben je naar op zoek?"
 describe('Search test', () => {
     beforeEach(() => {
         cy.setCookie('cookies_accepted', '1')
-        Cypress.Cookies.preserveOnce('loggedCustomer')
-        cy.getCookie("loggedCustomer").then(($cookie) => {
-            cy.log("Before each: " + $cookie.value)
+        Cypress.Cookies.preserveOnce('optimizelyEndUserId')
+        cy.getCookie("optimizelyEndUserId").then(($cookie) => {
+            cy.log("Before each end user id: " + $cookie.value)
+        })
+        Cypress.Cookies.preserveOnce('cqcid')
+        cy.getCookie("cqcid").then(($cookie) => {
+            cy.log("Before each cqcid: " + $cookie.value)
         })
     })
     before(() => {
@@ -27,10 +31,15 @@ describe('Search test', () => {
             cy.wrap($form).click()
             cy.get("[name='dwfrm_login_login']").click()
         })
-        cy.getCookie("loggedCustomer").then(($cookie) => {
-            cy.log("This is my cookie value: " + $cookie.value)
+        cy.getCookie("optimizelyEndUserId").then(($cookie) => {
+            cy.log("This is my cookie value end user id: " + $cookie.value)
         })
-        Cypress.Cookies.preserveOnce('loggedCustomer')
+        Cypress.Cookies.preserveOnce('optimizelyEndUserId')
+
+        cy.getCookie("cqcid").then(($cookie) => {
+            cy.log("This is my cookie value cqcid: " + $cookie.value)
+        })
+        Cypress.Cookies.preserveOnce('cqcid')
     })
     // it('Check cookies', () => {
     //     cy.visit("/")
@@ -50,6 +59,7 @@ describe('Search test', () => {
         cy.get(".search-term-title").should("have.text", nothingFound)
         cy.get(".inner-no-results h3").first().should("have.text", maybe)
         cy.get(".ordered li").first().should("contain.text", spelling).next().should("have.text", tryLessSpecific)
+        cy.get(".profile-wrap .grey span").first().should("have.text", "mijn HEMA")
         
     })
     it("Search for product and verify search results", () => {
@@ -64,6 +74,7 @@ describe('Search test', () => {
                 //expect($title.text()).to.contain.text(glass)
             })
         })
+        cy.get(".profile-wrap .grey span").first().should("have.text", "mijn HEMA")
 
     })
     it('Search product and dropdown check', () => {
@@ -81,6 +92,7 @@ describe('Search test', () => {
             cy.log("suggestion links are " + $link)
             expect(cy.wrap($link).should("contain.html", shirt))
         })
+        cy.get(".profile-wrap .grey span").first().should("have.text", "mijn HEMA")
     });
     it('Clear and content check', () => {
         cy.get("#q").clear().should("have.attr", "placeholder", whatAreYouLookingFor)
@@ -88,5 +100,6 @@ describe('Search test', () => {
         .get(".js-search-clear").should("have.attr", "style", "display: inline-block;")
         cy.get(".js-search-clear").click().should("have.attr", "style", "display: none;")
         .get("#q").should("have.attr", "placeholder", whatAreYouLookingFor)
+        cy.get(".profile-wrap .grey span").first().should("have.text", "mijn HEMA")
     });
 });

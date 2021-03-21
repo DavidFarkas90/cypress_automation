@@ -18,3 +18,34 @@ You can debug your application directly with Chrome DevTools while the tests are
 
 Cypress enables you to write several types of tests: end-to-end tests, integration tests, and even unit tests. You have the control and the ability to verify the behavior of functions or server responses, just like in unit testing.
 Cypress supports interacting with an API. There is a built in api testing library that’s simple to use.  This is something selenium/WebDriver.io can’t do without using a different library and extending the framework.
+==============================================================================================================================================================
+So I as mentioned before cypress is fast (since it runs in the browser it currently supports Chrome, Firefox, Edge and Electron)),pretty easy to setup (it is based on javascript and uses Node.js so we can install it via NPM with all other dependencies that we need for our project)
+It automatically waits for the DOM to be loaded, elements to be visible, animations to complete, XHR and AJAX calls to finish. We don't need to use explicit or implicit waiting.
+
+So here in testrail we have our test suite, it is divided into sections by the functionalities of our web app
+This is an example of a test case in Test rail. This test case is verifying the cake editor functionalaties.
+Here we have the test case intention, description, precondition and steps to execute and the expected results.
+
+
+And this is the same test case automated in cypress, with the exact same test steps and assertions for the expected results
+As you can see the whole run was completed in 30s
+
+Other great thing about cypress is it's debugabilty. Cypress takes snapshots of the steps executed so you can timetravel back and see on which step did the test fail.
+Also it gives you straithforward error messages and suggests how you should fix them.
+I will now demonstrate a failed test by failing it deliberately
+As you can see we can go through the test steps and assertions and see where did it fail, for what reason and even how to fix it.
+
+Also tests can be run from the command line, this way cypress takes video recording of the tests executed. I will show you how that looks like,
+As you can see this test is the same as for the cake editor, but the viewport is changed to iPhone 8, so this way we can mimic accessing HEMA webshop from mobile device using the browser.
+Also when running the tests from the command line we can also filter out tests by priority by passing in GREP command, to make a smoke or a regression run.
+
+This is achieved with custom npm scripts
+
+CI
+We can also start a test run from Bamboo which we use for continous integration. Cypress tests are running in a Docker container, so we don't need to interfere with the hosts environment. We just need to have docker installed on the machine where it running in this case our server.
+
+After the run is complete we have a generetad test report in test rail with all of our tests cases executed, test cases which were not executed are marked as untested, and these tests we can later execute manually.
+Running the test suite took 11m, manually it would take much more, roughly around 1.5h. From this 11m, it took 6m to execute the tests which means 5m were spent on video compression and upload, and for the run preparation in docker. This time can be improved by excluding the upload of passed tests and only uploading the failed tests, which we hope we will be very few or none :)
+
+Cypress also supports interacting with API. There is a built in api testing library that’s simple to use.  This is something selenium/WebDriver.io can’t do without using a different library and extending the framework.
+This is on our roadmap in the near future.
