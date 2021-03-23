@@ -12,14 +12,6 @@ const whatAreYouLookingFor = "Waar ben je naar op zoek?"
 describe('Search test', () => {
     beforeEach(() => {
         cy.setCookie('cookies_accepted', '1')
-        Cypress.Cookies.preserveOnce('optimizelyEndUserId')
-        cy.getCookie("optimizelyEndUserId").then(($cookie) => {
-            cy.log("Before each end user id: " + $cookie.value)
-        })
-        Cypress.Cookies.preserveOnce('cqcid')
-        cy.getCookie("cqcid").then(($cookie) => {
-            cy.log("Before each cqcid: " + $cookie.value)
-        })
     })
     before(() => {
         cy.setCookie('cookies_accepted', '1')
@@ -31,29 +23,7 @@ describe('Search test', () => {
             cy.wrap($form).click()
             cy.get("[name='dwfrm_login_login']").click()
         })
-        cy.getCookie("optimizelyEndUserId").then(($cookie) => {
-            cy.log("This is my cookie value end user id: " + $cookie.value)
-        })
-        Cypress.Cookies.preserveOnce('optimizelyEndUserId')
-
-        cy.getCookie("cqcid").then(($cookie) => {
-            cy.log("This is my cookie value cqcid: " + $cookie.value)
-        })
-        Cypress.Cookies.preserveOnce('cqcid')
     })
-    // it('Check cookies', () => {
-    //     cy.visit("/")
-        
-    //     cy.getCookie('cookies_accepted').then(($cookie) => {
-    //         cy.log("This is my cookie value: " + $cookie.value)
-    //         expect($cookie.value).to.equal('1')
-    //     })
-    //     cy.getCookie('userId').then(($cookie) => {
-    //         cy.log("This is my user value: " + $cookie.value)
-    //         //Cypress.Cookies.preserveOnce('userId')
-    //     })
-    //     cy.url().should("include", "hema")
-    // });
     it("No search results", () => {
         cy.searchForProduct(noResult)
         cy.get(".search-term-title").should("have.text", nothingFound)
